@@ -51,7 +51,7 @@ public class TestFeaturesConfig
                 .setMemoryCostWeight(10)
                 .setNetworkCostWeight(15)
                 .setDistributedIndexJoinsEnabled(false)
-                .setJoinMaxBroadcastTableSize(new DataSize(100, MEGABYTE))
+                .setJoinMaxBroadcastTableSize(DataSize.of(100, MEGABYTE))
                 .setJoinDistributionType(JoinDistributionType.AUTOMATIC)
                 .setGroupedExecutionEnabled(false)
                 .setDynamicScheduleForGroupedExecutionEnabled(false)
@@ -63,7 +63,7 @@ public class TestFeaturesConfig
                 .setMaxReorderedJoins(9)
                 .setRedistributeWrites(true)
                 .setScaleWriters(false)
-                .setWriterMinSize(new DataSize(32, MEGABYTE))
+                .setWriterMinSize(DataSize.of(32, MEGABYTE))
                 .setOptimizeMetadataQueries(false)
                 .setOptimizeHashGeneration(true)
                 .setPushTableWriteThroughUnion(true)
@@ -96,7 +96,7 @@ public class TestFeaturesConfig
                 .setParseDecimalLiteralsAsDouble(false)
                 .setForceSingleNodeOutput(true)
                 .setPagesIndexEagerCompactionEnabled(false)
-                .setFilterAndProjectMinOutputPageSize(new DataSize(500, KILOBYTE))
+                .setFilterAndProjectMinOutputPageSize(DataSize.of(500, KILOBYTE))
                 .setFilterAndProjectMinOutputPageRowCount(256)
                 .setUseMarkDistinct(true)
                 .setPreferPartialAggregation(true)
@@ -111,7 +111,7 @@ public class TestFeaturesConfig
                 .setPredicatePushdownUseTableProperties(true)
                 .setEnableDynamicFiltering(false)
                 .setDynamicFilteringMaxPerDriverRowCount(100)
-                .setDynamicFilteringMaxPerDriverSize(new DataSize(10, KILOBYTE))
+                .setDynamicFilteringMaxPerDriverSize(DataSize.of(10, KILOBYTE))
                 .setIgnoreDownstreamPreferences(false));
     }
 
@@ -199,7 +199,7 @@ public class TestFeaturesConfig
                 .setEnableForcedExchangeBelowGroupId(false)
                 .setDistributedIndexJoinsEnabled(true)
                 .setJoinDistributionType(BROADCAST)
-                .setJoinMaxBroadcastTableSize(new DataSize(42, GIGABYTE))
+                .setJoinMaxBroadcastTableSize(DataSize.of(42, GIGABYTE))
                 .setGroupedExecutionEnabled(true)
                 .setDynamicScheduleForGroupedExecutionEnabled(true)
                 .setConcurrentLifespansPerTask(1)
@@ -210,7 +210,7 @@ public class TestFeaturesConfig
                 .setMaxReorderedJoins(5)
                 .setRedistributeWrites(false)
                 .setScaleWriters(true)
-                .setWriterMinSize(new DataSize(42, GIGABYTE))
+                .setWriterMinSize(DataSize.of(42, GIGABYTE))
                 .setOptimizeMetadataQueries(true)
                 .setOptimizeHashGeneration(false)
                 .setOptimizeMixedDistinctAggregations(true)
@@ -236,7 +236,7 @@ public class TestFeaturesConfig
                 .setParseDecimalLiteralsAsDouble(true)
                 .setForceSingleNodeOutput(false)
                 .setPagesIndexEagerCompactionEnabled(true)
-                .setFilterAndProjectMinOutputPageSize(new DataSize(1, MEGABYTE))
+                .setFilterAndProjectMinOutputPageSize(DataSize.of(1, MEGABYTE))
                 .setFilterAndProjectMinOutputPageRowCount(2048)
                 .setUseMarkDistinct(false)
                 .setPreferPartialAggregation(false)
@@ -252,7 +252,7 @@ public class TestFeaturesConfig
                 .setPredicatePushdownUseTableProperties(false)
                 .setEnableDynamicFiltering(true)
                 .setDynamicFilteringMaxPerDriverRowCount(256)
-                .setDynamicFilteringMaxPerDriverSize(new DataSize(64, KILOBYTE))
+                .setDynamicFilteringMaxPerDriverSize(DataSize.of(64, KILOBYTE))
                 .setIgnoreDownstreamPreferences(true);
         assertFullMapping(properties, expected);
     }
