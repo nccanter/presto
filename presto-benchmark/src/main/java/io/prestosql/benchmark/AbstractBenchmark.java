@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static io.airlift.units.DataSize.Unit.BYTE;
 import static io.prestosql.benchmark.FormatUtils.formatCount;
 import static io.prestosql.benchmark.FormatUtils.formatCountRate;
 import static io.prestosql.benchmark.FormatUtils.formatDataRate;
@@ -114,16 +113,16 @@ public abstract class AbstractBenchmark
             benchmarkResultHook.finished();
         }
 
-        Map<String, Double> resultsAvg = averageBenchmarkResults.getAverageResultsValues();
+        Map<String, Long> resultsAvg = averageBenchmarkResults.getAverageResultsValues();
         Duration cpuNanos = new Duration(resultsAvg.get("cpu_nanos"), NANOSECONDS);
 
-        long inputRows = resultsAvg.get("input_rows").longValue();
-        DataSize inputBytes = new DataSize(resultsAvg.get("input_bytes"), BYTE);
+        long inputRows = resultsAvg.get("input_rows");
+        DataSize inputBytes = DataSize.ofBytes(resultsAvg.get("input_bytes"));
 
-        long outputRows = resultsAvg.get("output_rows").longValue();
-        DataSize outputBytes = new DataSize(resultsAvg.get("output_bytes"), BYTE);
+        long outputRows = resultsAvg.get("output_rows");
+        DataSize outputBytes = DataSize.ofBytes(resultsAvg.get("output_bytes"));
 
-        DataSize memory = new DataSize(resultsAvg.get("peak_memory"), BYTE);
+        DataSize memory = DataSize.ofBytes(resultsAvg.get("peak_memory"));
         System.out.printf("%35s :: %8.3f cpu ms :: %5s peak memory :: in %5s,  %6s,  %8s,  %8s :: out %5s,  %6s,  %8s,  %8s%n",
                 getBenchmarkName(),
                 cpuNanos.getValue(MILLISECONDS),
