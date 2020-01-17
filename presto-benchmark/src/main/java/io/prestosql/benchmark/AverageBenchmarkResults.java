@@ -44,9 +44,9 @@ public class AverageBenchmarkResults
         return this;
     }
 
-    public Map<String, Double> getAverageResultsValues()
+    public Map<String, Long> getAverageResultsValues()
     {
-        return Maps.transformValues(resultsSum, input -> 1.0 * input / resultsCount);
+        return Maps.transformValues(resultsSum, input -> Math.round(((double) input) / resultsCount));
     }
 
     public Map<String, String> getAverageResultsStrings()
