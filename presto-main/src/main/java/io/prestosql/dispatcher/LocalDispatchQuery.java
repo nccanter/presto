@@ -40,7 +40,6 @@ import static com.google.common.util.concurrent.Futures.nonCancellationPropagati
 import static io.airlift.concurrent.MoreFutures.addExceptionCallback;
 import static io.airlift.concurrent.MoreFutures.addSuccessCallback;
 import static io.airlift.concurrent.MoreFutures.tryGetFutureValue;
-import static io.airlift.units.DataSize.Unit.BYTE;
 import static io.prestosql.execution.QueryState.FAILED;
 import static io.prestosql.spi.StandardErrorCode.GENERIC_INTERNAL_ERROR;
 import static io.prestosql.util.Failures.toFailure;
@@ -198,7 +197,7 @@ public class LocalDispatchQuery
     {
         return tryGetQueryExecution()
                 .map(QueryExecution::getTotalMemoryReservation)
-                .orElseGet(() -> new DataSize(0, BYTE));
+                .orElseGet(() -> DataSize.ofBytes(0));
     }
 
     @Override
@@ -206,7 +205,7 @@ public class LocalDispatchQuery
     {
         return tryGetQueryExecution()
                 .map(QueryExecution::getUserMemoryReservation)
-                .orElseGet(() -> new DataSize(0, BYTE));
+                .orElseGet(() -> DataSize.ofBytes(0));
     }
 
     @Override

@@ -19,7 +19,6 @@ import io.airlift.units.Duration;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static io.airlift.units.DataSize.Unit.BYTE;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -110,12 +109,12 @@ final class FormatUtils
 
     public static String formatDataRate(DataSize dataSize, Duration duration, boolean longForm)
     {
-        double rate = dataSize.toBytes() / duration.getValue(SECONDS);
+        long rate = (long) (dataSize.toBytes() / duration.getValue(SECONDS));
         if (Double.isNaN(rate) || Double.isInfinite(rate)) {
             rate = 0;
         }
 
-        String rateString = formatDataSize(new DataSize(rate, BYTE), false);
+        String rateString = formatDataSize(DataSize.ofBytes(rate), false);
         if (longForm) {
             if (!rateString.endsWith("B")) {
                 rateString += "B";

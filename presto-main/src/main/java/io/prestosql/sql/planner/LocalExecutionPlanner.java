@@ -194,7 +194,6 @@ import io.prestosql.sql.tree.LambdaExpression;
 import io.prestosql.sql.tree.NodeRef;
 import io.prestosql.sql.tree.SymbolReference;
 import io.prestosql.type.FunctionType;
-import org.objectweb.asm.MethodTooLargeException;
 
 import javax.inject.Inject;
 
@@ -227,7 +226,6 @@ import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.getOnlyElement;
 import static com.google.common.collect.Range.closedOpen;
 import static io.airlift.concurrent.MoreFutures.addSuccessCallback;
-import static io.airlift.units.DataSize.Unit.BYTE;
 import static io.prestosql.SystemSessionProperties.getAggregationOperatorUnspillMemoryLimit;
 import static io.prestosql.SystemSessionProperties.getDynamicFilteringMaxPerDriverRowCount;
 import static io.prestosql.SystemSessionProperties.getDynamicFilteringMaxPerDriverSize;
@@ -2265,7 +2263,7 @@ public class LocalExecutionPlanner
                         false,
                         false,
                         false,
-                        new DataSize(0, BYTE),
+                        DataSize.ofBytes(0),
                         context,
                         STATS_START_CHANNEL,
                         outputMapping,
@@ -2344,7 +2342,7 @@ public class LocalExecutionPlanner
                         false,
                         false,
                         false,
-                        new DataSize(0, BYTE),
+                        DataSize.ofBytes(0),
                         context,
                         0,
                         outputMapping,
@@ -2835,7 +2833,8 @@ public class LocalExecutionPlanner
         }
     }
 
-    private static Throwable getExceptionRootCause(Throwable throwable) {
+    private static Throwable getExceptionRootCause(Throwable throwable)
+    {
         Set<Throwable> seen = new HashSet<>();
         while (throwable.getCause() != null && !seen.contains(throwable)) {
             seen.add(throwable);
